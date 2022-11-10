@@ -1,0 +1,922 @@
+<html>
+
+<head>
+
+<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	 crossorigin="anonymous">
+
+	<script src="./app.js">
+
+	</script>
+
+	<script src="./qrcode.js">
+
+	</script>
+
+	<script>
+		var qrcode;
+
+        function initQRCode() {
+
+            qrcode = new QRCode(document.getElementById("QRCodePlaceHolder"), {
+
+                text: "",
+
+                width: 256,
+
+                height: 256,
+
+                colorDark: "#000000",
+
+                colorLight: "#ffffff",
+
+                correctLevel: QRCode.CorrectLevel.H
+
+            });
+
+        }
+
+        window.onload = initQRCode
+      
+      // Generate QR Code :)
+        function generateQRCode(text) {
+            var sums = Array(25).fill(0);  // Change the number in the Array to the max # of item numbers (see the addAction this.value)
+
+            for (const item of compressedList) {
+              sums[item]++;
+            }
+
+            qrcode.clear();
+
+            qrcode.makeCode(teamNumber + "\t" + matchNumber + "\t" + comments + "\t" + sums.join("\t") + "\r")
+
+
+moveTableRight();
+        }
+
+        
+	</script>
+
+</head>
+
+
+
+<body>
+
+
+
+	<div class="d-flex justify-content-center">
+
+
+
+		<form class="form-group">
+
+
+
+			<table border="1" class="table table-striped table-dark" id="table1">
+        
+				<tbody id="t1">
+
+					<tr class="myClass">
+
+						<td bgcolor = "red" class="myClass">
+							<center> <input type="button" value="Reset" class="btn btn-light" ondblclick="resetButton()"> </center></td>
+
+                        <td bgcolor = "red" class="myClass"><center> <input type="button" value="&lt;--" class="btn btn-light btn-disabled" disabled></center> </td>
+
+                        <td bgcolor = "red" class="myClass"><center> <input type="button" value="--&gt;" class="btn btn-light" onclick="moveTableRight()"> </center></td>
+
+
+
+                        <td colspan="1" bgcolor = "red" class="myClass"><center> <input type="number" maxlength="3" class="form-control" id="MatchNo1"
+
+                                placeholder=" Match Number" onchange="changeMatchNumber(this.value)"> </center> </td>
+
+
+
+
+
+                        <td colspan="2" bgcolor = "red" class="myClass"><center> <input type="number" maxlength="4" class="form-control" id="teamNo1"
+
+                                placeholder=" Team Number:" onchange="changeTeamNumber(this.value)"></center></td>
+
+                    </tr>
+
+                    <tr>
+                        <td colspan="6" bgcolor = "red"> 
+                          <h2> <center> AUTON </center> </h2>
+                        </td>
+                    </tr>
+
+<!--                     <tr>
+
+                        <td colspan="6">
+
+                            <h3 class="h3">
+
+                                <center> PICKUP </center>
+
+                            </h3>
+
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td> <center> <input type="button" value="Pickup" onclick="addAction(this.value,0)" 
+
+                                class="btn btn-light"> </center> </td>
+
+                        <!-- <td> <center> <input type="button" value="Pickup Far" onclick="addAction(this.value,2)" 
+
+                                class="btn btn-light"> </center> </td>
+
+                        <td colspan="4"> <center>
+
+                            <h3 id= "counter"> #0 </h3> </center>
+
+                        </td>
+
+                        <td> <center> <input type="button" value="Drop" id="Drop" onclick="addAction(this.value,1)" class="btn btn-light" disabled> </center>
+
+                        </td>
+
+                    </tr>
+
+          <tr>
+
+                        <td colspan="6">
+
+                            <h3 class="h3">
+
+                                <center> SHOOT </center>
+
+                            </h3>
+
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td colspan="3">
+
+                            <h4>
+
+                                <center> NEAR </center>
+
+                            </h4>
+
+                        </td>
+
+                        <!-- <td colspan="3">
+
+                            <h4>
+
+                                <center> FAR </center>
+
+                            </h4>
+
+                        </td> -->
+
+                    <!-- </tr> --> 
+
+                    <tr>
+
+                        <td>
+
+                            <center>
+
+                                <h4> SCORE </h4>
+
+                            </center>
+
+                        </td>
+
+                        <td colspan = "3"> <center> <input type="button" value="High" id="scoreHigh" onclick="addAction(this.id,4)" disabled
+
+                                class="btn btn-light"> </center> </td>
+
+                        <td colspan = "3"> <center> <input type="button" value="Low" id="scoreLow" onclick="addAction(this.id,5)"disabled
+
+                                class="btn btn-light"> </center>
+
+                        </td>
+
+                        <!-- <td>
+
+                            <center>
+
+                                <h4> SCORE </h4>
+
+                            </center>
+
+                        </td> -->
+
+                        <!-- <td> <center> <input type="button" value="High" id="scoreHighFar" onclick="addAction(this.id,6)"disabled
+
+                                class="btn btn-light"> </center> </td> -->
+
+                        <!-- <td> <center> <input type="button" value="Low" id="scoreLowFar" onclick="addAction(this.id,7)"disabled
+
+                                class="btn btn-light"> </center> </td> -->
+
+                    </tr>
+
+                    <tr>
+
+                        <td>
+
+                            <center>
+
+                                <h4> MISS </h4>
+
+                            </center>
+
+                        </td>
+
+                        <td colspan = "3"> <center> <input type="button" value="High" id="missHigh" onclick="addAction(this.id,8)"disabled
+
+                                class="btn btn-light"> </center> </td>
+
+                        <td colspan = "3"> <center> <input type="button" value="Low" id="missLow" onclick="addAction(this.id,9)"disabled
+
+                                class="btn btn-light"> </center> </td>
+
+                        <!-- <td>
+
+                            <center>
+
+                                <h4> MISS </h4>
+
+                            </center>
+
+                        <!-- </td> -->
+
+                        <!-- <td> <center> <input type="button" value="High" id="missHighFar" onclick="addAction(this.id,10)"disabled
+
+                                class="btn btn-light"> </center> </td> --> 
+
+                        <!-- <td> <center> <input type="button" value="Low" id="missLowFar" onclick="addAction(this.id,11)"disabled
+
+                                class="btn btn-light"> </center> </td> -->
+
+                    </tr>
+
+
+
+                    <tr>
+                      <td colspan="3"> <center> <input type="button" value="Undo" 
+                      class="btn btn-light id="UndoAction" onclick="Undo()"> 
+                      </center> </td>
+
+                        <td colspan="3">
+
+                            <center> <input type="button" value="Left Tarmac" id="Tarmac" onclick="addAction(this.id,12)" class="btn btn-light">
+
+                            </center>
+
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        
+
+                        <td colspan="6"> <center> <textarea readonly rows="4" cols="50" id="teamLog1">  </textarea> </center> </td>
+
+                        
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+
+
+            <table border="1" class="table table-striped table-dark" id="table2">
+
+
+
+                <tbody>
+
+                    <tr>
+
+                        <!-- <td> <center> <input type="button" value="Go" class="btn btn-light" onclick="addAction(this.value,11)"> </center> </td> -->
+
+                        <td class="myClass" bgcolor="darkblue"> <center> <input type="button" value="&lt;--" class="btn btn-light" onclick="moveTableLeft()"> </center> </td>
+
+                        <td class="myClass" bgcolor="darkblue"> <center> <input type="button" value="--&gt;" class="btn btn-light" onclick="moveTableRight()"> </center> </td>
+
+                        <td colspan="2" class="myClass" bgcolor="darkblue"> <center> <input type="number" maxlength="2" class="form-control" id="MatchNo2"
+
+                                placeholder=" Match Number"||"MatchNo()" onchange="changeMatchNumber(this.value)"> </center> </td>
+
+                        <td colspan="3" class="myClass" bgcolor="darkblue"> <center> <input type="number" maxlength="4" class="form-control" id="teamNo2"
+
+                                placeholder=" Team Number:" onchange="changeTeamNumber(this.value)"> </center> </td>
+
+                    </tr>
+
+                    <tr>
+                        <td colspan="6" bgcolor = "darkblue"> 
+                          <h2> <center> TELEOP </center> </h2>
+                        </td>
+                    </tr>
+
+<!--                     <tr>
+
+                        <td colspan="6">
+
+                            <h3 class="h3">
+
+                                <center> PICKUP </center>
+
+                            </h3>
+
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td> <center> <input type="button" value="Pickup" onclick="addAction(this.value,2)" 
+
+                                class="btn btn-light"> </center> </td> -->
+
+                        <!-- <td> <center> <input type="button" value="Pickup Far" onclick="addAction(this.value,15)" 
+
+                                class="btn btn-light"> </center> </td> -->
+
+<!--                         <td colspan="4">
+
+                            <h3> <center> <a id="counter2"> #0 </a> </center> </h3>
+
+                        </td>
+
+                        <td> <center> <input type="button" value="Drop" id = "Drop2" onclick="addAction(this.value,3)"disabled class="btn btn-light"> </center>
+
+                        </td>
+
+                    </tr> -->
+
+                    <tr>
+
+                        <td colspan="6">
+
+                            <h3 class="h3">
+
+                                <center> SHOOT </center>
+
+                            </h3>
+
+                        </td>
+
+                    </tr>
+
+                    <!-- <tr>
+
+                        <td colspan="3">
+
+                            <h4>
+
+                                <center> NEAR </center>
+
+                            </h4>
+
+                        </td>
+
+                        <td colspan="3">
+
+                            <!-- <h4>
+
+                                <center> FAR </center>
+
+                            </h4> -->
+
+                        <!-- </td> -->
+
+                    <!-- </tr> --> 
+
+                    <tr>
+
+                        <td>
+
+                            <center>
+
+                                <h4> SCORE </h4>
+
+                            </center>
+
+                        </td>
+
+                        <td colspan = "3">  <center>  <input type="button" value="High" id="scoreHigh2" onclick="addAction(this.id,13)"disabled
+
+                                class="btn btn-light"> </center> </td>
+
+                        <td colspan = "3"> <center>  <input type="button" value="Low" id="scoreLow2" onclick="addAction(this.id,14)"disabled
+
+                                class="btn btn-light"> </center> </td>
+
+                        <!-- <td>
+
+                            <center>
+
+                                <h4> SCORE </h4>
+
+                            </center>
+
+                        </td> -->
+
+                        <!-- <td> <center>  <input type="button" value="High" id="scoreHighFar2" onclick="addAction(this.id,19)"disabled
+
+                                class="btn btn-light"> </center> </td> -->
+
+                        <!-- <td> <center>  <input type="button" value="Low" id="scoreLowFar2" onclick="addAction(this.id,20)"disabled
+
+                                class="btn btn-light"> </center> </td> -->
+
+                    </tr>
+
+                    <tr>
+
+                        <td>
+
+                            <center>
+
+                                <h4> MISS </h4>
+
+                            </center>
+
+                        </td>
+
+                        <td colspan = "3"> <center>  <input type="button" value="High" id="missHigh2" onclick="addAction(this.id,15)" class="btn btn-light"disabled> </center> </td>
+
+                        <td colspan = "3"> <center>  <input type="button" value="Low" id="missLow2" onclick="addAction(this.id,16)"disabled
+
+                                class="btn btn-light"> </center> </td>
+
+                        <!-- <td>
+
+                            <center>
+
+                                <h4> MISS </h4>
+
+                            </center>
+
+                        </td> -->
+
+<!--                         <td>  <center>  <input type="button" value="High" id="missHighFar2" onclick="addAction(this.id,23)" class="btn btn-light"disabled> </center> </td> -->
+
+                        <!-- <td>  <center>  <input type="button" value="Low" id="missLowFar2" onclick="addAction(this.id,24)"disabled
+
+                                class="btn btn-light"> </center> </td> -->
+
+                    </tr>
+
+                    <tr>
+
+                        <td colspan="6">
+
+                            <center>
+
+                                <h3> CLIMB </h3>
+
+                            </center>
+
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td> <center>
+
+                            <input type="button" value="Low Bar" id="Parked" onclick="addAction(this.value,18)"
+
+                                class="btn btn-light"> </center>
+
+                        <!-- </td>
+
+                        <td> <center>
+
+                            <input type="button" value="Balance" id="Balanced" onclick="addAction(this.value,26)"
+
+                                class="btn btn-light"> </center>
+
+                        </td> -->
+
+                        <td> <center>
+
+                            <input type="button" value="Medium"  onclick="addAction(this.value,19)"
+
+                                class="btn btn-light"> </center>
+
+                        </td>
+
+
+                        <td> <center>
+
+                            <input type="button" value="High Bar"  onclick="addAction(this.value,20)"
+
+                                class="btn btn-light"> </center>
+
+                        </td>
+
+
+                        <td> <center>
+
+                            <input type="button" value="Traversal"  onclick="addAction(this.value,21)"
+
+                                class="btn btn-light"> </center>
+
+                        </td>                        
+                        <!-- <td> <center>
+
+                            <input type="button" value="Buddy 1" id="BuddyOne" onclick="addAction(this.value,28)"
+
+                                class="btn btn-light"> </center>
+
+                        </td>  -->
+
+                        <!-- <td> <center>
+
+                            <input type="button" value="Buddy 2" id="BuddyTwo" onclick="addAction(this.value,29)"
+
+                                class="btn btn-light"> </center>
+
+                        </td> -->
+
+                        <td colspan="2"> <center>
+
+                            <input type="button" value="Failed" id="FailedClimb" onclick="addAction(this.value,22)"
+
+                                class="btn btn-light"> </center>
+
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td colspan="2"> <center> <input type="button" value="Undo" id="UndoAction" onclick="Undo()"
+
+                                class="btn btn-light"> </center> </td>
+
+                        <td colspan="2">
+
+                        </td>
+
+                        <td> <center> <input type="button" value="Foul" id="RegFoul" onclick="addAction(this.value,7)"
+
+                                class="btn btn-light"> </center> </td>
+
+                        <td> <center>
+
+                            <input type="button" value="TechFoul" id="technicalFoul" onclick="addAction(this.value,8)"
+
+                                class="btn btn-light"> </center>
+
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td></td>
+
+                        <td colspan="4">  <center>  <textarea readonly rows="4" cols="50" id="teamLog2">  </textarea> </center> </td>
+
+                        <td></td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+
+
+            <table border="1" class="table table-striped table-dark" id="table3">
+
+                <tbody>
+
+                    <center>
+
+                        <tr >
+
+                            <!-- <td colspan="1">  <center>  <input type="button" value="Go" class="btn btn-light"
+
+                                    onclick="addAction(this.value,33)"> </center></td> -->
+
+                            <td colspan = "1" class="myClass" bgcolor="green"> <center> <input type="button" value="&lt;--" class="btn btn-light" onclick="moveTableLeft()"> </center>
+
+                            </td>
+
+                            <td colspan = "1" class="myClass" bgcolor="green"> <center> <input type="button" value="--&gt;" class="btn btn-light"
+
+                                    onclick="generateQRCode('hmmm')"></center></td>
+
+                            <td colspan="2" class="myClass" bgcolor="green"> <center>  <input type="number" maxlength="3" class="form-control" id="MatchNo3"
+
+                                    placeholder=" Match Number:" onchange="changeMatchNumber(this.value)"></center></td>
+
+                            <td colspan="2" class="myClass" bgcolor="green"> <center>  <input type="number" maxlength="5" class=" form-control" id="teamNo3"
+
+                                    placeholder=" Team Number:" onchange="changeTeamNumber(this.value)"></center></td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td colspan="6" bgcolor = "green">
+
+                                <h3 class="h3">
+
+                                    <center>
+
+                                        <h2> REVIEW </h2>
+
+                                    </center>
+
+                                </h3>
+
+                            </td>
+
+                        </tr>
+<tr> <td colspan="6"> <center> <h6> Do not use any special characters or punctuation </h6></center> </td> </tr>
+<!--                         <tr>
+
+                            <td colspan="6">
+
+                                <h3 class="h3">
+
+                                    <center>
+
+                                        <h3> AUTO </h3>
+
+                                    </center>
+
+                                </h3>
+
+                            </td>
+
+                        </tr> -->
+
+                        <!-- <tr>
+
+                            <td colspan="3">
+
+                                <h4>
+
+                                    <center> NEAR </center>
+
+                                </h4>
+
+                            </td>
+
+                            <td colspan="3">
+
+                                <h4>
+
+                                    <center> FAR </center>
+
+                                </h4>
+
+                            </td>
+
+                        </tr> -->
+
+<!--                         <tr>
+
+                            <td colspan="2">
+
+                                <center>
+
+                                    <h4> Scored </h4>
+
+                                </center>
+
+                            </td>
+                            <td colspan="2"> <center> <h5> High </h5> <input type="number" maxlength="2" class="form-control"  id="scoreHigh" value="scoreHigh"
+
+                                     readonly> </center> </td>
+
+
+                            <td colspan="2"> <center> <h5> Low </h5> <input type="number" maxlength="2" class="form-control" id="ScoreLow"
+
+                                     readonly>  </center> </td> -->
+
+
+                            <!-- <td>
+
+                                <center>
+
+                                    <h4> Scored </h4>
+
+                                </center>
+
+                            </td>
+
+                            <td> <center> <h5> High </h5> <input type="number" maxlength="2" class="form-control" id="autonScoreHighFar"
+
+                                  readonly> </center> </td>
+
+
+                            <td> <center> <h5> Low </h5> <input type="number" maxlength="2" class="form-control" id="autonScoreLowFar"
+
+                                  readonly> </center> </td> -->
+
+<!--                         </tr> -->
+
+
+
+
+
+
+
+
+
+
+
+
+<!--                         <tr>
+
+                            <td colspan="6">
+
+                                <center>
+
+                                    <h3> TELEOP </h3>
+
+                                </center>
+
+                            </td>
+
+                        </tr> -->
+
+                        <!-- <tr>
+
+                            <td colspan="3">
+
+                                <h4>
+
+                                    <center> NEAR </center>
+
+                                </h4>
+
+                            </td>
+
+                            <td colspan="3">
+
+                                <h4>
+
+                                    <center> FAR </center>
+
+                                </h4>
+
+                            </td>
+
+                        </tr> -->
+
+<!--                         <tr>
+
+                            <td colspan="2">
+
+                                <center>
+
+                                    <h4> Scored </h4>
+
+                                </center>
+
+                            </td>
+                            <td colspan="2"> <center> <h5> High </h5> <input type="number" maxlength="2" class="form-control" value="(this.id,13)" id="(this.id,13)"
+
+                                     readonly> </center> </td>
+
+
+                            <td colspan="2"> <center> <h5> Low </h5> <input type="number" maxlength="2" class="form-control" value="finalScoreLowNear" id="finalScoreLowNear"
+
+                                     readonly>  </center> </td> -->
+
+
+                            <!-- <td>
+
+                                <center>
+
+                                    <h4> Scored </h4>
+
+                                </center>
+
+                            </td>
+
+                            <td> <center> <h5> High </h5> <input type="number" maxlength="2" class="form-control" id="finalScoreHighFar"
+
+                                  readonly> </center> </td>
+
+
+                            <td> <center> <h5> Low </h5> <input type="number" maxlength="2" class="form-control" id="finalScoreLowFar"
+
+                                  readonly> </center> </td> -->
+
+<!--                         </tr>
+
+                        <tr>
+
+                            <td colspan="6">
+
+                                <center>
+
+                                    <h3> FOULS: <a id="foulsCount">0</a> </h3>
+
+                                </center>
+
+                            </td>
+                            
+
+                        </tr> -->
+
+                       
+                        <tr>
+
+                            <td colspan="6">
+
+                                <center> <input type="text" id="comments" placeholder="Comments"
+
+                                        onchange="updateComments()"> </center> </td> </tr>
+
+                               <tr>          
+
+                        <td colspan="6"> <center> <textarea readonly rows="4" cols="50" id="teamLog3">  </textarea> </center> </td>
+
+                        
+
+                           
+
+                        </tr>
+
+                    </center>
+
+                </tbody>
+
+            </table>
+
+            <table border="1" class="table-secondary" id="QRCode">
+
+                <tbody>
+
+                    <tr>
+
+                        <!-- <td> <center>  <input type="button" value="Go" class="btn btn-light" onclick="addAction(this.value,34)"></center></td> -->
+
+                        <td> <center> <input type="button" value="&lt;--" class="btn btn-light" onclick="moveTableLeft()"></center></td>
+
+                        <td> <center> <input type="button" value="--&gt;" class="btn btn-light btn-disabled" disabled></center></td>
+
+                        <td colspan="3"> <center>  <input type="number" maxlength="4" class="form-control" id="teamNo4"
+
+                                placeholder=" Team Number:" onchange="changeTeamNumber(this.value)"></center> </td>
+
+                    </tr>
+<tr bgcolor="white" border="0"> <td colspan="6" border="0"> <h1> | </h1> </td> </tr>
+
+                    <tr bgcolor="white" border="0">
+
+                        <td colspan="6" border="0">
+
+                            <center>
+
+                                <div id="QRCodePlaceHolder"> </div>
+
+                            </center>
+
+                        </td>
+
+                    </tr>
+<tr bgcolor="white" border="0"> <td colspan="6" border="0"> <h1> | </h1></td></tr>
+                </tbody>
+
+            </table>
+
+        </form>
+
+    </div>
+
+
+
+    <script>
+
+        init();
+
+    </script>
+
+
+
+</body>
+
+
+
+</html>
