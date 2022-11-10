@@ -1,0 +1,14 @@
+{
+  "teamNumber" : 3928,
+  "matchNumber" : 1,
+  "events" : [
+    {"eventName":"exampleEvent","eventTime":5000},
+    {"eventName":"exampleEvent","eventTime":5000},
+    {"eventName":"exampleEvent","eventTime":5000},
+    {"eventName":"exampleEvent","eventTime":5000},
+    {"eventName":"exampleEvent","eventTime":5000},
+    {"eventName":"exampleEvent","eventTime":5000},
+    {"eventName":"exampleEvent","eventTime":5000}
+  ]
+}
+
