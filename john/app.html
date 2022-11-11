@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<title>App Test</title>
+<meta charset="utf-8">
+<meta name="author" content="Team Neutrino FRC #3928">
+<script src="https://code.jquery.com/jquery-3.6.1.js"
+ integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+ crossorigin="anonymous"></script>
+<script src="./qrcode.js"></script>
+
+<style>
+/* global element styling */
+html { width: 100%; background-color: grey; }
+body { touch-action: manipulation; }
+button { margin: 5px; font-size: 120%; }
+input:invalid { border: red solid 3px; }
+input:placeholder-shown { border: red solid 3px; }
+.redback { background-color: red !important; }
+.greyback { background-color: lightgrey !important; }
+
+/* the CSS below is ordered the same as elements are on the page */
+
+/* at the top, reset, prev/next arrows, match & team info */
+header {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    grid-template-rows: auto;
+}
+header div { font-size: 120%; }
+#hdr-l { grid-column: 1; grid-row: 1; text-align: left; }
+#hdr-c { grid-column: 2; grid-row: 1; text-align: center; }
+#hdr-r { grid-column: 3; grid-row: 1; text-align: right; }
+#reset { margin-left: 0; }
+#scouter { text-transform: lowercase; }
+#scouter, #match, #team { margin: 5px 0 auto 5px; font-size: 120%; }
+/* just below is what phase we are in */
+#pdiv  { text-align: center; background-color: orange;}
+#phase { font-size: 120%; }
+
+/* the 3 main panes */
+main {
+    margin-top: 5px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    grid-template-rows: minmax(100px, auto);
+}
+#main-l {
+    background-color: lightblue;
+    grid-column: 1;
+    grid-row: 1;
+    text-align: center;
+}
+#main-c {
+    background-color: lightgreen;
+    grid-column: 2;
+    grid-row: 1;
+    text-align: center;
+}
+#main-r {
+    background-color: lightyellow;
+    grid-column: 3;
+    grid-row: 1;
+    text-align: center;
+}
+
+/* space for the QR code at the end */
+#QR { padding: 15px; width: 256px; margin: 0 auto; }
+#more { padding-top: 15px; }
+#when { font-size: 80%; }
+
+/* comments are between main panes and the log */
+#cdiv { margin: 5px 5px 5px 0; }
+#comments { width: 100%; }
+#comments:placeholder-shown { border: 0; }
+
+/* the footer is the log */
+footer { text-align: center; }
+#log {
+    background-color: white;
+    overflow-x: clip;
+    overflow-y: scroll;
+    width: 100%;
+    line-height: 1.1em;
+    height: 8.8em;
+    margin: 5px 0;
+    white-space: pre;
+    font-family: monospace;
+}
+
+/* hack so Chrome[-based] browsers show the darn scrollbar! */
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
+</style>
+</head>
+
+<body>
+<audio id="alert" preload="auto" src="./alert.ogg"></audio>
+<!-- note: the header section is likely to remain unchanged -->
+<header>
+<div id="hdr-l">
+<button id="reset">Reset</button>
+Scouter<input id="scouter" type="text" placeholder="???"
+ title="Your Initials (lowercase)"
+ size="3" minlength="2" maxlength="4" pattern="[a-zA-Z]{1,4}">
+</div>
+<div id="hdr-c">
+<button id="prev" title="Go Back to Previous Phase">&xlArr;</button>
+<button id="next" title="Go Forward to Next Phase">&xrArr;</button>
+</div>
+<div id="hdr-r">
+Match<input id="match" type="text" placeholder="??"
+ title="Match Number; 1, 2, 3 ... etc"
+ size="2" minlength="1" maxlength="2" pattern="[0-9]{1,2}">
+&nbsp;
+Team<input id="team" type="text" placeholder="????"
+ title="The team number of the team YOU are scouting"
+ size="4" minlength="1" maxlength="4" pattern="[0-9]{1,4}">
+</div>
+</header>
+<div id="pdiv"><span id="phase">Auton</span></div>
+
+<!-- this is the main part of the page, into divided left/center/right panes -->
+<!-- the content of the panes can change depending on the phase of the game -->
+<main>
+
+<!-- left pane -->
+<div id="main-l">
+<div class="Auton">
+<button data-counter="auton-high-goal" data-pts="4">High Goal</button><br>
+<button data-counter="auton-low-goal"  data-pts="2">Low Goal</button><br>
+</div>
+
+<div class="Teleop">
+<button data-counter="high-goal" data-pts="2">High Goal</button><br>
+<button data-counter="low-goal"  data-pts="1">Low Goal</button><br>
+</div>
+
+<div class="Results"></div>
+</div>
+
+<!-- center pane -->
+<div id="main-c">
+<div class="Auton">
+<button data-ignore="auton-go" data-pts="0">Go!</button><br>
+<button data-once="auton-left-tarmac" data-pts="2">Left Tarmac</button><br>
+</div>
+<div class="Teleop">
+<button data-var="climb" data-val="trav" data-pts="15">Traversal</button><br>
+<button data-var="climb" data-val="high" data-pts="10">High</button><br>
+<button data-var="climb" data-val="mid"  data-pts="6" >Mid</button><br>
+<button data-var="climb" data-val="low"  data-pts="4" >Low</button><br>
+<button data-var="climb" data-val="none" data-pts="0" >None</button><br>
+</div>
+<div id="QR" class="Results">
+<div id="QRCodePlaceHolder"></div>
+<div id="more">
+<button id="r-prev" title="Go Back to Previous Result">&xlArr;</button>
+<span id="when"></span>
+<button id="r-next" title="Go Forward to Next Result">&xrArr;</button>
+</div>
+</div>
+</div>
+
+<!-- right pane -->
+<div id="main-r">
+<div class="Auton Teleop">
+<button data-counter="red-card">Red Card</button><br>
+<button data-counter="yellow-card">Yellow Card</button><br>
+<button data-counter="tech-foul"     data-pts="-8" >Tech Foul</button><br>
+<button data-counter="foul"          data-pts="-4" >Foul</button><br>
+<button data-counter="climb-awarded" data-pts="-16">Climb Awarded</button><br>
+</div>
+<div class="Results"></div>
+</div>
+
+</main>
+
+<!-- next is the free-form comments area -->
+<div id="cdiv"><input id="comments" type="text" placeholder="Comments"></div>
+
+<!-- finally at the bottom is the scrolling log of what has happened -->
+<footer>
+<div id="log"></div>
+<button id="undo" title="Remove the most recent Item above">Undo</button>
+</footer>
+
+<script>
+! (function ( TN, $ ) {
+"use strict";
+
+    // extend jQuery with a reverse() that works on jQuery objects
+    $.fn.reverse = function () {
+        return this.pushStack(this.get().reverse(), arguments);
+    };
+
+    // phase names must match <div classes> above and setup functions below
+    TN.phases = [ "Auton", "Teleop", "Results" ];
+    TN.phase = 0;
+    TN.autonSecs = 15;
+    TN.autonRepeat = 5;
+    TN.tmo = 0;
+    TN.results = [];
+    TN.rcurrent = -1;
+    TN.qrcode = new QRCode("QRCodePlaceHolder", {/* accept all defaults*/});
+
+    // special setup functions for each phase (see above)
+    TN.fn.Auton   = function () { /* nothing to do */};
+    TN.fn.Teleop  = function () { TN.fn.clearWarning(); };
+    TN.fn.Results = function () { TN.fn.makeQR();     };
+
+    // this initializes the button entries dictionary
+    TN.fn.initEntries = function () {
+        const e = { n: 0, pts: 0, kind: undefined, val: undefined };
+        const kinds = [ "counter", "once", "var", "ignore" ];
+        for (const kind of kinds) {
+            const n = $(this).attr('data-'+kind);
+            if (n) {
+                if (kind == 'var') {
+                    e.val = $(this).attr('data-val');
+                }
+                e.kind = kind;
+                TN.entries[n] = e;
+                break;
+            }
+        }
+    };
+
+    // a function to reset/initialize everything
+    TN.fn.doReset = function () {
+        TN.fn.changePhase(0);
+        TN.fn.clearWarning();
+        // initials NOT reset
+        $('#team').val('');
+        $('#match').val('').focus();
+        $('#comments').val('');
+        $('button').each(TN.fn.initEntries);
+        $('button').each(function() {               
+            $(this).attr('tabindex', '-1');
+        });
+        $('#log').attr('tabindex', '-1');
+        $('#r-prev').prop("disabled", true);
+        $('#r-next').prop("disabled", true);
+        $('#log').empty();
+    };
+
+    // implement the prev/next buttons
+    //  delta: 0=reset, -1=prev, +1=next
+    TN.fn.changePhase = function (delta) {
+        if (delta == 0) {
+            // reset -- hide all phases except #0
+            TN.phases.forEach(function(name, i) {
+                if (i > 0) $('.'+name).hide();
+            });
+            TN.phase = 0;
+        } else {
+            // hide the phase we are leaving
+            const prevp = TN.phases[TN.phase];
+            $('.'+prevp).hide();
+            // new phase is
+            TN.phase += delta;
+        }
+        // show the new phase
+        const currp = TN.phases[TN.phase];
+        $('.'+currp).show();
+        $('#phase').text(currp);
+        // Call a function for any special setup for the new phase
+        const f = TN.fn[currp];
+        if (typeof f === 'function') f.apply(this);
+        // prev disabled in first phase
+        $('#prev').prop("disabled", (TN.phase == 0));
+        // next disabled in last phase (undo the same)
+        $('#next').prop("disabled", (TN.phase == (TN.phases.length-1)));
+        $('#undo').prop("disabled", (TN.phase == (TN.phases.length-1)));
+    };
+
+    // implement scoring button presses (op > 0) & undos (op < 0)
+    TN.fn.buttonop = function (op, name, pts, v) {
+        TN.fn.setWarning();
+        const entry = TN.entries[name];
+        if (entry.kind == "counter") entry.n += op;
+        if (entry.kind == "once") {
+            if ((op > 0) && (entry.n > 0)) return;  /* already seen */
+            entry.n = (op > 0) ? op : 0;
+        }
+        if (entry.kind == "var") {
+            entry.n = (op > 0) ? op : 0;
+            entry.val = v;
+        }
+        if (op > 0) entry.pts = pts;
+        TN.entries[name] = entry;
+        if (op > 0) {
+            const msg = name + (v ? (' '+v) : '') + '\n';
+            $('#log').prepend(msg);
+            $('#log').addClass("greyback").delay(250).queue( function() {
+                $('#log').removeClass("greyback").dequeue();
+            });
+        }
+    };
+
+    // The next 3 functions are an obnoxious warning that auton is over
+    TN.fn.blink = function () { 
+        if (TN.tmo == 0) return;
+        $('#next').fadeOut(500).fadeIn(500, TN.fn.blink); 
+    };
+    TN.fn.setWarning = function () {
+        if ((TN.tmo == 0) && (TN.phase == 0)) {
+            TN.tmo = setTimeout( function() {
+                TN.tmo = setInterval( function() {
+                   document.getElementById("alert").play();
+                }, TN.autonRepeat * 1000);
+                $('#next').addClass("redback");
+                TN.fn.blink();
+                document.getElementById("alert").play();
+            }, TN.autonSecs * 1000);
+        }
+    };
+    TN.fn.clearWarning = function () {
+        if (TN.tmo != 0) {
+            clearTimeout(TN.tmo);
+            TN.tmo = 0;
+            $('#next').removeClass("redback");
+        }
+    };
+
+    // hopefully obvious what this does...
+    TN.fn.makeQR = function () {
+        let qrtext = ($('#match').val()   || '0') + '\t'
+                   + ($('#team').val()    || '0');
+        const sorted = Object.entries(TN.entries).sort(
+          (a,b) => a[0].localeCompare(b[0]));
+        for (const [key, entry] of sorted) {
+            if (entry.kind != "ignore") {
+                console.log(key + ": " + entry.n + " x " + entry.pts);
+                qrtext += ('\t' + (entry.pts * entry.n));
+            }
+        }
+        // V01 (the version column) is a fixed value for sanity checking
+        const now = new Date().toJSON();
+        const trailer = '\t' + 'V0101'		// Version 1.01
+                      + '\t' + now
+                      + '\t' + ($('#scouter').val() || 'n/a')
+                      + '\t' + ($('#comments').val() || 'none')
+                      + '\r';
+        qrtext += trailer;
+        console.log(qrtext);
+        TN.qrcode.clear();
+        TN.qrcode.makeCode(qrtext);
+	TN.results.push(qrtext);
+        TN.rcurrent = TN.results.length - 1;
+        $('#r-next').prop("disabled", true);
+	$('#r-prev').prop("disabled", (TN.rcurrent == 0));
+    };
+
+    TN.fn.history = function (dir) {
+        const maxidx = TN.results.length-1;
+        const idx = (TN.rcurrent += dir);
+        const qrtext = TN.results[idx];
+        const parts = qrtext.split('\t');
+        const when = parts[0];		// match#
+        TN.qrcode.clear();
+        TN.qrcode.makeCode(qrtext);
+        $('#r-prev').prop("disabled", (TN.rcurrent == 0));
+        $('#r-next').prop("disabled", (TN.rcurrent == maxidx));
+        $('#when').text(when);
+    };
+
+    // everything inside this function is defer'd until the document is ready
+    $(function() {
+
+        // doing a reset *is* our initialization
+        TN.fn.doReset();
+
+        // and we do it when they click the reset button (if confirmed)
+        $('#reset').click( function() {
+            if (confirm('Clear everyting -- Are you sure?')) TN.fn.doReset();
+        });
+
+        // they clicked the arrow to step to the previous/next phase
+        $('#prev').click( function() { TN.fn.changePhase(-1); });
+        $('#next').click( function() { TN.fn.changePhase(+1); });
+
+        // handle button clicks which indicate something scoring-ish happened
+        $('button').click( function() {
+            const pts  = parseInt($(this).data('pts') ?? "0");
+            const val  = $(this).data('val');
+            const name = $(this).data('counter') ??
+                         $(this).data('once')    ??
+                         $(this).data('var')     ??
+                         $(this).data('ignore');
+            if (name) TN.fn.buttonop(+1, name, pts, val);
+            $(this).addClass("redback").delay(250).queue( function() {
+                $(this).removeClass("redback").dequeue();
+            });
+        });
+
+        // undo button -- pop newest item from log and have buttonop reverse it
+        $('#undo').click( function() {
+            const tos = $('#log').contents().first();
+            const msg = tos.text().trim();
+            if (msg) {
+                // msg is: name [ sp val ]
+                const substrs = msg.split(' ', 2);
+                TN.fn.buttonop(-1, substrs[0], 0, substrs[1]);
+                tos.remove();
+            }
+        });
+
+        // allow undo of any item, not just the most recent one -- useful?
+        $('#log').mouseup( function() {
+            // nothing selected, nothing to do
+            const s = window.getSelection();
+            if (!s || (s.rangeCount < 1)) return true;
+
+            // find where the selection is
+            const node = s.anchorNode;
+            const range = s.getRangeAt(0);
+
+            // expand selection to the whole node (line in our case)
+            range.setStart(node, 0);
+            range.setEnd(node, node.length - 1);
+        });
+        $('#log').keydown( function(ev) {
+            const key = ev.code;
+            if ((key != "Backspace") && (key != "Delete")) return true;
+
+            // nothing selected, nothing to delete
+            const s = window.getSelection();
+            if (!s || (s.rangeCount < 1)) return true;
+
+            const node = s.anchorNode;
+            const msg = node.textContent.trim();    // minus the newline
+
+            if (msg) {
+                const substrs = msg.split(' ', 2);
+                TN.fn.buttonop(-1, substrs[0], 0, substrs[1]);
+                node.parentNode.removeChild(node);   // delete from DOM
+            }
+        });
+
+	// scroll through results
+        $('#r-prev').click( function() {
+            TN.fn.history(-1);
+        });
+        $('#r-next').click( function() {
+            TN.fn.history(+1);
+        });
+
+    });
+} ( window.TN = { fn: {}, entries: {} }, jQuery ));
+</script>
+</body>
+</html>
