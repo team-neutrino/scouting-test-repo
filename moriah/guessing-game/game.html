@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <title>Guessing Game</title>
+        
+        <!-- TODO: make it look nice -->
+        <style>
+            
+        </style>
+    </head>
+
+    <body> 
+        <h1>The Ultimate Guessing Game</h1>
+        <p>
+            I have choosen a secret number between 1 and 100.
+            You have 10 turns to guess my secret number.
+            Each time you guess wrong I will tell you if my secret number
+            is higher or lower than your guess.
+            The game ends when you guess my secret number or run out of turns.
+        </p>
+
+        <div>
+            <label>Enter your guess: </label>
+            <input type="number" min="1" max="100" class="userGuess">
+            <button onclick=checkGuess()>Submit Guess</button>
+        </div>
+
+        <div>
+            <p class="turns"></p>
+            <p class="guesses"></p>
+            <p class="highLow"></p>
+        </div>
+
+        <div>
+            <button onclick=resetGame()>Restart</button>
+        </div>
+
+        <script>
+            let randomNum = Math.floor(Math.random() * 100) + 1;
+            let turnCount = 1;
+            
+            const turnField = document.querySelector(".turns");
+            const guessesField = document.querySelector(".guesses");
+            const highLowField = document.querySelector(".highLow");
+            const userGuessField = document.querySelector(".userGuess");
+
+            function checkGuess() {
+                const userGuess = Number(userGuessField.value);
+
+                if(turnCount === 1) {
+                    guessesField.textContent = 'Previous guesses: ';
+                }
+                guessesField.textContent += userGuess + ' ';
+
+                if(userGuess === randomNum) {
+                    highLowField.textContent = 'Congrats! You guessed my secret number!';
+                }
+                else if(turnCount === 10) {
+                    highLowField.textContent = 'Sorry but you ran out of turns. Better luck next time!';
+                }
+                else {
+                    if(userGuess < randomNum) {
+                        highLowField.textContent = 'You need to guess higher';
+                    }
+                    else {
+                        highLowField.textContent = 'You need to guess lower';
+                    }
+
+                    turnCount++;
+                    turnField.textContent = 'Turn ' + turnCount;
+                }
+            }
+
+            function resetGame() {
+                turnCount = 1;
+                turnField.textContent = '';
+                guessesField.textContent = '';
+                highLowField.textContent = '';
+            }
+
+        </script>
+    </body>
+</html>
