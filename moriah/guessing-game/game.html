@@ -32,7 +32,7 @@
         </div>
 
         <div>
-            <button>Restart</button>
+            <button onclick=resetGame()>Restart</button>
         </div>
 
         <script>
@@ -69,6 +69,13 @@
                     turnCount++;
                     turnField.textContent = 'Turn ' + turnCount;
                 }
+            }
+
+            function resetGame() {
+                turnCount = 1;
+                turnField.textContent = '';
+                guessesField.textContent = '';
+                highLowField.textContent = '';
             }
 
         </script>
