@@ -1,7 +1,7 @@
 # scouting-test-repo
 A free space to learn front-end development and have fun!
 
-Pages are accessible: https://team-neutrino.github.io/scouting-test-repo/
+Pages are accessible: https://team-neutrino.github.io/scouting-test-repo/john/
 
 ## Rules
 - Make your own folder
