@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Auton</title>
+<link rel="stylesheet" type="text/css" href="MASTERSTLYE.css">
+
+<script src="./app.js"> 
+ function setboxteam() {                   var teamnum = document.getElementById("teamnum").value;
+ }
+                                                                                       
+    function setboxmatch() {                   var matchnum = document.getElementById("matchnum").value;
+ }
+    
+    
+</script>
+</head>
+<style>
+    .secret {
+        opacity: 0;
+        position: absolute;
+        top:-20px;
+        left: 41.4vw;
+    }
+    .anton {
+        opacity: 0;
+        position:absolute;
+        top: 5px;
+        left: 44.4vw;
+        color:white;
+        animation-name: anton;
+        animation-duration: 5s;
+        animation-timing-function: ease-in-out;
+        animation-iteration-count: infinite;
+        animation-direction: alternate;
+    }
+    @Keyframes anton {
+        0% {color: #ff0000;font-size: 56px; transform: rotate(20deg);}
+        10% {color:#ff8400;}
+        20% {color:#fff700;}
+        25% {color: #11ff00;font-size: 65px;transform: rotate(-260deg);}
+        30% {color:#00ff99;}
+        40% {color:#00d0ff;}
+        50% {color:#0037ff;font-size: 56px; transform: rotate(20deg);}
+        60% {color:#7300ff;}
+        70% {color:#d400ff;}
+        75% {color:#ff00d9;font-size: 65px;transform: rotate(-20deg);}
+        80% {color:#ff0073;}
+        100% {color: #ff0000;font-size: 56px; transform: rotate(20deg);}
+    }
+    </style>
+<body>
+     
+    <div class="grid-container">
+        
+         <div style="background-color:#3b616e;">
+            <input class="teamnumber" 
+type="number" style="grid-area: 1 / 1 / span 1 / span 1;"placeholder="Team Number" id="teamnum" onchange="setboxteam()"/> 
+    </div>
+   
+    <div class="header" style="background-color:#3b616e;">
+        <h1 id="auton">Auton</h1>
+         <h1 class="anton" id="anton">Anton</h1>
+        <button id="anton was here" class="secret" onclick="addAnton(this.id,999)"></button>
+        
+        </div>
+        
+        <div style="background-color:#3b616e;" >
+            <input class="matchnumber" style="grid-area: 1 / 5 / span 1 / span 1;" type="number" placeholder="Match Number" id="matchnum" onchange="setboxmatch()"/> 
+    </div>
+
+        
+        
+    <div>
+        <button class="midbutton1" id="Docked" onclick= addAction(this.id,1)>Docked</button> 
+           </div>
+        
+           <div>
+        <button class="midbutton2" onclick="Undo()">Undo</button>
+           </div>
+        
+           <div >
+        <button class="midbutton3" id="Docked & Engaged" onclick= addAction(this.id,2)>Docked Engaged</button>
+    </div>
+
+<div class="leftbuttongroup" >
+    <button style="margin-top:8vw;background-color:#F5E666;" onclick= addAction(this.id,3) id="Cone High">Cone High</button><br>
+        <button id="Cone Mid" style="background-color:#fCE926;" onclick= addAction(this.id,4)>Cone Mid</button><br>
+    <button id="Cone Low" style="background-color:#E6D62E;" onclick= addAction(this.id,5)>Cone Low</button><br>
+        <button style="background-color:#a13030;">Mobility</button>
+              </div>
+
+        <div class="gap" style="grid-area: 3 / 2 / span 4 / span 3;" > 
+              &nbsp; 
+    </div>
+
+    <div class="rightbuttongroup">    
+        <button id="Cube High" style="margin-top:8vw;background-color:#BB5DF5" onclick= addAction(this.id,6)>Cube High</button><br>
+        <button id="Cube Mid" style="background-color:#9F4FD1;" onclick= addAction(this.id,7)>Cube Mid</button><br>
+        <button id="Cube Low" style="background-color:#8040A8;" onclick= addAction(this.id,8)>Cube Low</button><br>
+        <button id="a" onclick="window.location.href='./Teleop NEW.html';" style="background-color:#30a188;font-size:76px;text-shadow: 2px 2px 5px black;">&rarr;</button>
+    </div>
+         <div class="gap" style="grid-area: 4/ 2 / span 2 / span 3;" > 
+              &nbsp; 
+    </div>
+   
+
+          
+    
+      <div  class="terminal" >  
+    <textarea placeholder="Nothing to Undo" style="resize: none; min-width: 100%; min-height: 100%; 
+    max-width: 100%; max-height: 100%; -webkid-box-sizing:border-box; -mox-box-sizing:border-box;box-sizing: border-box;" id="teamLog1" readonly>
+  </textarea>
+          
+          
+ </div>
+        </div>
+
+
+</body>
+</html>
