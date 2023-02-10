@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<script>
+function appendText(){ 
+
+document.getElementById("TERMNIAL").value += "\n Tech Foul";
+
+ }
+
+    </script>
+<head>
+<title>Endgame and More</title>
+<link rel="stylesheet" type="text/css" href="MASTERSTLYE.css">
+</head>
+
+<body>
+     
+    <div class="grid-container">
+        
+         <div style="background-color:#FF3998;">
+             <input class="teamnumber" style="grid-area: 1 / 5 / span 1 / span 1;" style="grid-area: 1 / 1 / span 1 / span 1;" type="number" placeholder="Team Number"/> 
+    </div>
+   
+    <div style="background-color:#FF3998;" class="header" >
+        <h1>Endgame and More</h1>
+        
+        </div>
+        
+        <div style="background-color:#FF3998;">
+             <input class="matchnumber" type="number" placeholder="Match Number"/> 
+    </div>
+
+        
+        <div class="textbox">
+        <form>
+            
+            <textarea rows="6" cols="50"name="name" placeholder="put your epic comments here!" style="resize: none; min-width: 50%; min-height: 100%; max-width: 100%; max-height: 50%; -webkid-box-sizing:border-box; -mox-box-sizing:border-box;box-sizing: border-box;width:250px;height:100px;"></textarea>
+
+        </form> 
+        </div>
+        <div class="gap" style="grid-area: 3 / 2 / span 1 / span 1;" > 
+            &nbsp; 
+    </div>
+    <div class="gap" style="grid-area: 3 / 4 / span 1 / span 1;" > 
+        &nbsp; 
+</div>
+           
+    <div>
+        <button class="EGmidbutton1">Foul</button>
+           </div>
+        
+           <div>
+        <button class="EGmidbutton2">Undo</button>
+           </div>
+        
+           <div>
+        <button class="EGmidbutton3">Tech Foul</button>
+    </div>
+        
+<div class="leftbuttongroup" >
+    <button onclick=""id="a" style="margin-top:17vw;background-color:#edf8b1">Park</button><br>
+        <button id="a" style="background-color:#7fcdbb">None</button><br>
+        <button onclick="window.location.href='./Teleop NEW.html';" style="background-color:#a13030;font-size:76px;text-shadow: 2px 2px 5px black;">&larr;</button>
+              </div>
+
+        <div class="gap" style="grid-area: 4 / 2 / span 3 / span 3;" > 
+              &nbsp; 
+    </div>
+
+    <div class="rightbuttongroup">    
+        <button id="a" style="margin-top:17vw;background-color:#edf8b1" >Docked and Engaged</button><br>
+        <button id="a" style="background-color:#7fcdbb">Docked</button><br>
+        <button id="a" style="background-color:#30a188;font-size:76px;text-shadow: 2px 2px 5px black;" onclick="window.location.href='./QR Code NEW.html';">&rarr;</button>
+    </div>
+
+      <div  class="EGterminal" >  
+    <textarea style="resize: none; min-width: 100%; min-height: 100%; max-width: 100%; max-height: 100%; -webkid-box-sizing:border-box; -mox-box-sizing:border-box;box-sizing: border-box;" id="TERMNIAL"readonly>
+  </textarea>
+           </div>
+        </div>
+
+
+</body>
+</html>
+
+

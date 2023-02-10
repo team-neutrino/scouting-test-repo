@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Index</title>
+<link rel="stylesheet" type="text/css" href="MASTERSTLYE.css">
+
+    <style>
+        
+       /*  @Keyframes vibeingbutton {
+        0% {background-color: #ff0000;font-size: 56px; transform: rotate(5deg);}
+        10% {background-color:#ff8400;}
+        20% {background-color:#fff700;}
+        25% {background-color: #11ff00;font-size: 65px;transform: rotate(-5deg);}
+        30% {background-color:#00ff99;}
+        40% {background-color:#00d0ff;}
+        50% {background-color:#0037ff;font-size: 56px; transform: rotate(5deg);}
+        60% {background-color:#7300ff;}
+        70% {background-color:#d400ff;}
+        75% {background-color:#ff00d9;font-size: 65px;transform: rotate(-5deg);}
+        80% {background-color:#ff0073;}
+        100% {background-color: #ff0000;font-size: 56px; transform: rotate(5deg);} 
+    }*/
+        @Keyframes vibeingbutton {
+        0% {background-color: green;font-size: 42px; transform: rotate(1deg);}
+        25% {background-color: lightgreen;font-size: 50px;transform: rotate(-1deg);}
+        50% {background-color:green;font-size: 42px; transform: rotate(1deg);}
+        75% {background-color:lightgreen;font-size: 50px;transform: rotate(-1deg);}
+        100% {background-color: green;font-size: 42px; transform: rotate(1deg);} 
+        }
+        .next {
+            animation-name: vibeingbutton;
+            animation-duration: 5s;
+            animation-timing-function: cubic-bezier(0.12, 2, 0.58, 2);
+            animation-iteration-count: infinite;
+            font-size:32px;
+        }
+    </style>
+<body>
+     
+    <div class="grid-container">
+        
+         <div>
+             <input class="teamnumber" style="grid-area: 2 / 1 / span 1 / span 1;" type="number" placeholder="Team Number" readonly/> 
+    </div>
+   
+    <div class="indexheader" >
+        <h1>Index</h1>
+        
+        </div>
+        
+        <div>
+             <input class="matchnumber" style="grid-area: 2 / 3 / span 1 / span 1;" type="number" placeholder="Scout Initials" readonly/> 
+    </div>
+        <div>
+             <input class="teamnumber" style="grid-area: 2 / 2/ span 1 / span 1;" type="number" placeholder="Match Number" readonly/> 
+    </div>
+
+    
+      
+    <div>
+        <button class="redal" style="background-color:Red">Red Allignce</button>
+           </div>
+        
+           <div>
+        <button class="blueal" style="background-color:Blue">Blue Allignce</button>
+    </div>
+        
+<div class="gap" style="grid-area: 3 / 3 / span 3 / span 1;">
+     &nbsp; 
+        </div>
+    <div class="gap" style="grid-area: 3 / 1 / span 3 / span 1;">
+     &nbsp; 
+        </div>
+        <div class="gap" style="grid-area: 1 / 1 / span 1 / span 1;">
+            &nbsp; 
+               </div>
+               <div class="gap" style="grid-area: 1 / 3 / span 1 / span 1;">
+                &nbsp; 
+                   </div>
+
+    <div>    
+
+        <button class="next" id="a" style="background-color:#1e6d1c" onclick="window.location.href='./Auton NEW.html';">GO!</button>
+    </div>
+
+      
+        </div>
+
+
+</body>
+</html>
+
+

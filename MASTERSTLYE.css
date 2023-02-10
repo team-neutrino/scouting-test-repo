@@ -1,0 +1,245 @@
+
+    .teamnumber {
+        height:30px;
+        border-color:black;
+        background-color:lightgrey;
+        border:3px solid black; 
+        box-shadow: 0px 0px 10px #C9E1F3;
+        border-radius: 5px;
+        margin-top:3.7vw;
+        text-align: center; 
+        background-color:lightgrey;
+        color:white;
+        background:
+radial-gradient(circle at 100% 50%, transparent 20%, rgba(255,255,255,.3) 21%, rgba(255,255,255,.3) 34%, transparent 35%, transparent),
+radial-gradient(circle at 0% 50%, transparent 20%, rgba(255,255,255,.3) 21%, rgba(255,255,255,.3) 34%, transparent 35%, transparent) 0 -50px;
+        background-size:75px 100px;
+        background-color:#C9E1F3;
+    }
+    .header { 
+        grid-area: 1 / 2 / span 1 / span 3;
+        background-color:red;
+    }
+    .indexheader { 
+        grid-area: 1 / 2 / span 1 / span 1;
+        
+    }
+    .matchnumber {
+        height:30px;
+        border-color:black;
+        background-color:lightgrey;
+        border:3px solid black; 
+        box-shadow: 0px 0px 10px #C9E1F3;
+        border-radius: 5px;
+        margin-top:3.7vw;
+        text-align: center; 
+        background-color:lightgrey;
+        color:white;
+        background:
+radial-gradient(circle at 100% 50%, transparent 20%, rgba(255,255,255,.3) 21%, rgba(255,255,255,.3) 34%, transparent 35%, transparent),
+radial-gradient(circle at 0% 50%, transparent 20%, rgba(255,255,255,.3) 21%, rgba(255,255,255,.3) 34%, transparent 35%, transparent) 0 -50px;
+        background-size:75px 100px;
+        background-color:#C9E1F3;
+    }
+    
+    .gap { 
+        padding: 20px;
+    }
+    
+    .textbox { 
+        grid-area: 3 / 3  / span 1 / span 1;
+    }
+    .leftbuttongroup { 
+        grid-area: 2 / 1  / span 5 / span 1;
+    }
+    .rightbuttongroup { 
+        grid-area: 2 / 5  / span 5 / span 1;
+    }
+    .QRBack { 
+        grid-area: 7 / 1  / span 1 / span 1;
+        background-color: #a13030;
+    }
+    .QRReset { 
+        grid-area: 5 / 3  / span 1 / span 1;
+        background-color: #30a188;
+    }
+    .terminal { 
+         grid-area: 3 / 3  / span 3 / span 1;
+    }
+    .EGterminal { 
+         grid-area: 4 / 3  / span 2 / span 1;
+    }
+    .midbutton1 { 
+        grid-area: 2 / 2 / span 1 / span 1;
+        background-color: #a8ddb5;
+    }
+    .midbutton2 { 
+        grid-area: 2 / 3 / span 1 / span 1;
+        background-color: #7bccc4;
+    }
+    .midbutton3 { 
+       grid-area: 2 / 4 / span 1 / span 1;
+       background-color: #43a2ca;
+    }
+    .midbutton4 { 
+        grid-area: 3 / 2 / span 1 / span 1;
+    }
+    .midbutton5 { 
+        grid-area: 3 / 4 / span 1 / span 1;
+    }
+    .EGmidbutton1 { 
+        grid-area: 2 / 2 / span 1 / span 1;
+        background-color: #a8ddb5;
+    }
+    .EGmidbutton2 { 
+        grid-area: 2 / 3 / span 1 / span 1;
+        background-color: #7bccc4;
+    }
+    .EGmidbutton3 { 
+       grid-area: 2 / 4 / span 1 / span 1;
+       background-color: #43a2ca;
+    }
+    .EGmidbutton4 { 
+        grid-area: 4 / 2 / span 1 / span 1;
+    }
+    .Egmidbutton5 { 
+        grid-area: 4 / 4 / span 1 / span 1;
+    }
+    .qrcode {
+        grid-area: 2 / 1 / span 3 / span 3;
+    }
+    .redal { 
+        grid-area: 3 / 2 / span 1 / span 1;
+    }
+    .blueal { 
+        grid-area: 4 / 2 / span 1 / span 1;
+    }
+    .next { 
+        grid-area: 5 / 2  / span 1 / span 1;
+    }
+
+.grid-container {
+        display: grid;
+        /*grid-template-areas:
+            'teamnumber gap header gap2 matchnumber'
+            'gap textbox gap2';
+          'gap gap midbutton1 midbutton2 midbutton3 gap gap'
+            'gap gap midbutton4 gap midbutton5 gap gap'
+               'leftbuttongroup gap gap gap gap gap rightbuttongroup'
+            'gap gap gap terminal gap gap gap';  */;
+         gap: 5px;
+        width 100vw;
+        height: 100vh;
+        background-color: #343b45;    /* #343b45 */
+    animation-name: eplipsie;
+        animation-duration: .001s;
+        animation-iteration-count: infinite;
+    animation-direction: reverse;
+    }
+*{
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+    .grid-container > div {
+       
+background-color: #1b2d33;
+         text-align: center;
+        font-size: 30px;
+    }
+    button {
+        Height: 100px;
+        width: 200px;
+        border: 5px solid black;
+        border-radius: 8px;
+        font-size: 25px;
+        margin: 20px;
+        transition-duration: 0.5s;
+        transition-timing-function: ease
+        cursor pointer;
+        color:black;
+        background:
+radial-gradient(circle at 100% 50%, transparent 20%, rgba(255,255,255,.005) 21%, rgba(255,255,255,.005) 34%, transparent 35%, transparent),
+radial-gradient(circle at 0% 50%, transparent 20%, rgba(255,255,255,.005) 21%, rgba(255,255,255,.005) 34%, transparent 35%, transparent) 0 -50px;
+background-size:75px 100px; 
+text-align:center;
+        
+    }
+/* @keyframes eplipsie {
+0%   {background-color:white;}
+100%   {background-color:black;}
+} 
+     button:hover {
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        font-size: 30px;
+        transform: scale(1.1); 
+    }*/
+    button:active {
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        font-size: 30px;
+        transform: scale(1.5);
+        outline: 2px solid rgb(3, 255, 83);
+        transform: translate(0px, 2px);
+        transition: all 0.01;
+      }
+      textarea {
+        border-color: black;
+        border: 5px solid black; 
+        border-radius: 5px;
+        text-align: center;
+        margin-top: 15px;
+        background-size:75px 100px;
+        box-shadow: 0px 0px 15px black;
+      }
+
+
+
+    @keyframes button-press {
+        0% {
+            transform: translate(0px, 0px);
+        }
+        100% {
+            transform: translate(0px, 2px);
+        }
+    }
+/*.Autonh1 {
+        font-family: "Times New Roman", Times, serif;
+        color: black;
+        font-size: 55px;
+        transition-delay: .75s;
+        transition-duration: 5s;
+        transition-timing-function: ease;
+}
+        
+    .header:hover .annton {
+        color: orange;
+        text-shadow: 1px 1px 2px black, 0 0 25px white, 0 0 5px orange;
+        opacity: 1;
+    }
+    .header:hover .auton {
+        color: orange;
+        text-shadow: 1px 1px 2px black, 0 0 25px white, 0 0 5px orange;
+        opacity: 0;
+    }
+    .auton {
+        Margin:0px;
+        Padding:0px;
+        transition-delay: .75s;
+        transition-duration: 2s;
+        transition-timing-function: ease;
+    }
+    .annton {
+        Margin:0px;
+        Padding:0px;
+        opacity:0;
+        transition-delay: .75s;
+        transition-duration: 2s;
+        transition-timing-function: ease;
+    } */
+    h1 {
+        font-size: 56px;
+        color: white;
+        text-shadow: 5px 2px black;
+    }
+        
+    

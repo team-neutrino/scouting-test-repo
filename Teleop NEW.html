@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Teleop</title>
+<link rel="stylesheet" type="text/css" href="MASTERSTLYE.css">
+</head>
+<script src="./app.js"></script>
+
+<body>
+     
+    <div class="grid-container">
+        
+         <div style="background-color:#45ad7a;">
+            <input  class="teamnumber" style="grid-area: 1 / 1 / span 1 / span 1;" type="number" placeholder="Team Number" readonly/> 
+
+    </div>
+   
+    <div style="background-color:#45ad7a;" class="header" >
+        <h1>Teleop</h1>
+        
+        </div>
+        
+        <div style="background-color:#45ad7a;">
+             <input class="matchnumber" style="grid-area: 1 / 5 / span 1 / span 1;" type="number" placeholder="Match Number" readonly/> 
+ 
+    </div>
+
+        
+        
+    <div>
+        <button id="Foul" class="midbutton1" onclick= addAction(this.id,1)>Foul</button>
+           </div>
+        
+           <div>
+        <button class="midbutton2" onclick= "Undo()">Undo</button>
+           </div>
+        
+           <div>
+        <button id="Tech Foul" class="midbutton3" onclick= addAction(this.id,2)>Tech Foul</button>
+    </div>
+
+      
+
+
+        
+<div class="leftbuttongroup" >
+    <button id="Cone High" style="margin-top:8vw;background-color:#F5E666;" onclick= addAction(this.id,3)>Cone High</button><br>
+        <button id="Cone Mid" style="background-color:#fCE926;" onclick= addAction(this.id,4)>Cone Mid</button><br>
+    <button id="Cone Low" style="background-color:#E6D62E;" onclick= addAction(this.id,5)>Cone low</button><br>
+        <button onclick="window.location.href='./Auton NEW.html';" style="background-color:#a13030;font-size:76px;text-shadow: 2px 2px 5px black;">&larr;</button>
+              </div>
+
+        <div class="gap" style="grid-area: 3 / 2 / span 4 / span 3;" > 
+              &nbsp; 
+    </div>
+
+    <div class="rightbuttongroup">    
+        <button id="Cube High" style="margin-top:8vw;background-color:#BB5DF5" onclick= addAction(this.id,6)>Cube High</button><br>
+        <button id="Cube Mid" style="background-color:#9F4FD1;" onclick= addAction(this.id,7)>Cube Mid</button><br>
+        <button id="Cube Low" style="background-color:#8040A8;" onclick= addAction(this.id,8)>Cube low</button><br>
+        <button id="a" onclick="window.location.href='./Endgame NEW.html';" style="background-color:#30a188;font-size:76px;text-shadow: 2px 2px 5px black;">&rarr;</button>
+    </div>
+         <div class="gap" style="grid-area: 4/ 2 / span 2 / span 3;" > 
+              &nbsp; 
+    </div>
+
+      <div  class="terminal" >  
+    <textarea id="teamLog1" placeholder="Nothing to Undo" style="resize: none; min-width: 100%; min-height: 100%; max-width: 100%; max-height: 100%; -webkid-box-sizing:border-box; -mox-box-sizing:border-box;box-sizing: border-box;"readonly>
+  </textarea>
+           </div>
+        </div>
+
+
+</body>
+</html>
+
+
